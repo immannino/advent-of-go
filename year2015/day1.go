@@ -5,13 +5,10 @@ import (
 	"fmt"
 )
 
-var data string
-
-func init() {
-	data = utils.GetData("year2015/day1.txt")
-}
-
+// Day1 -- Not Quite Lisp
 func Day1() {
+	data := utils.GetData("data/2015/day1.txt")
+
 	floor := 0
 	input := []rune(data)
 	position := 1

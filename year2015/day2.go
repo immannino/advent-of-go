@@ -8,14 +8,10 @@ import (
 	"strings"
 )
 
-var data2 string
-
-func init() {
-	data2 = utils.GetData("year2015/day2.txt")
-}
-
+// Day2 -- I Was Told There Would Be No Math
 func Day2() {
-	boxes := strings.Split(data2, "\n")
+	data := utils.GetData("data/2015/day2.txt")
+	boxes := strings.Split(data, "\n")
 
 	totalArea := 0
 	totalRibbon := 0

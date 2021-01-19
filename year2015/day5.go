@@ -8,12 +8,10 @@ import (
 
 var data5 string
 
-func init() {
-	data5 = utils.GetData("year2015/day5.txt")
-}
-
-// Welp time to learn how MD5 hash works.
+// Day5 -- Perfectly Spherical Houses in a Vacuum
 func Day5() {
+	data5 = utils.GetData("data/2015/day5.txt")
+
 	list := strings.Split(data5, "\n")
 	count := 0
 	count2 := 0
@@ -21,16 +19,14 @@ func Day5() {
 	for _, c := range list {
 		// part 1
 		if hasThreeVowel(c) && hasRepeatingChar(c) && doesNotHaveSpecificStrings(c) {
-			count += 1
+			count++
 		}
 
 		if hasOverlappingPairs(c) && ovo(c) {
-			fmt.Printf("%s - 1: %t 2: %t \n", c, hasOverlappingPairs(c), ovo(c))
-			count2 += 1
+			count2++
 		}
 	}
 
-	// fmt.Printf("Day 4: { 1: %d, 2: %d }\n", h.Sum(nil), 0)
 	fmt.Printf("Day 5: { 1: %d, 2: %d }\n", count, count2)
 }
 
@@ -44,7 +40,7 @@ func hasThreeVowel(word string) bool {
 
 	for _, c := range word {
 		if contains(&vowels, c) {
-			count += 1
+			count++
 		}
 	}
 
@@ -73,9 +69,9 @@ func hasRepeatingChar(word string) bool {
 
 		if tempChar == currentChar {
 			return true
-		} else {
-			currentChar = tempChar
 		}
+
+		currentChar = tempChar
 	}
 
 	return false
@@ -94,9 +90,9 @@ func doesNotHaveSpecificStrings(word string) bool {
 
 		if isBadString(&badVals, str) {
 			return false
-		} else {
-			current = temp
 		}
+
+		current = temp
 	}
 
 	return true
@@ -116,19 +112,12 @@ func isBadString(bad *[]string, word string) bool {
 
 // Create a map that keeps count of pairs. Return true if any keys have count 2+
 func hasOverlappingPairs(word string) bool {
-	patterns := make(map[string]int)
-
 	for i := 0; i < (len(word) - 1); i++ {
 		substr := word[i:(i + 2)]
-		if _, ok := patterns[substr]; ok {
-			patterns[substr] += 1
-		} else {
-			patterns[substr] = 1
-		}
-	}
 
-	for _, v := range patterns {
-		if v >= 2 {
+		parts := strings.Split(word, substr)
+
+		if len(parts) >= 3 {
 			return true
 		}
 	}
@@ -140,10 +129,7 @@ func hasOverlappingPairs(word string) bool {
 func ovo(word string) bool {
 	for i := 0; i < (len(word) - 2); i++ {
 		first := word[i]
-		// middle := word[i+1]
 		last := word[i+2]
-
-		// fmt.Printf("%s%s%s\n", string(first), string(middle), string(last))
 
 		if first == last {
 			return true

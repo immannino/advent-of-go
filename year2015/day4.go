@@ -6,10 +6,11 @@ import (
 	"io"
 )
 
-var data4 string = "yzbqklnj"
-
+// Day4 -- Perfectly Spherical Houses in a Vacuum
 // Welp time to learn how MD5 hash works.
 func Day4() {
+	// data := "yzbqklnj"
+
 	h := md5.New()
 	// secret := []byte(data4)
 

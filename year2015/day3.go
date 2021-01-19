@@ -5,14 +5,10 @@ import (
 	"fmt"
 )
 
-var data3 string
-
-func init() {
-	data3 = utils.GetData("year2015/day3.txt")
-}
-
+// Day3 -- Perfectly Spherical Houses in a Vacuum
 func Day3() {
-	coords := []rune(data3)
+	data := utils.GetData("data/2015/day3.txt")
+	coords := []rune(data)
 	visited := make(map[string]bool)
 	pos := []int{0, 0}
 
