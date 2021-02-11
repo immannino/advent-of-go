@@ -17,6 +17,8 @@ func main() {
 	year2015.Day4()
 	year2015.Day5()
 	year2015.Day6()
+	// year2015.Day7()
+	year2015.Day8()
 
 	elapsed := time.Since(start)
 

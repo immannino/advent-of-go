@@ -70,6 +70,7 @@ func TestToggleLights(t *testing.T) {
 				}
 			}
 
+			fmt.Println(actual, tt.count)
 			if actual != tt.count {
 				t.Errorf("got %d, expected %d", actual, tt.count)
 			}

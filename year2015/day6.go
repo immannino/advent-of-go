@@ -18,18 +18,20 @@ func Day6() {
 	data := utils.GetData("data/2015/day6.txt")
 	list := strings.Split(data, "\r\n")
 	coords := make([]uint8, 1000000)
+	coords2 := make([]uint8, 1000000)
 	rowSize := 1000
 
 	for _, c := range list {
 		vals, action := parseIns(c)
 
 		toggleLights(&coords, vals, action, rowSize)
-		// fmt.Println(getLightCount(coords), action, vals)
+		toggleLightsPart2(&coords2, vals, action, rowSize)
 	}
 
 	litCount := getLightCount(coords)
+	litCount2 := getLightPower(coords2)
 
-	fmt.Printf("Day  6: { 1: %d, 2: %d }\n", litCount, len(list))
+	fmt.Printf("Day  6: { 1: %d, 2: %d }\n", litCount, litCount2)
 }
 
 func getLightCount(lights []uint8) int {
@@ -42,6 +44,16 @@ func getLightCount(lights []uint8) int {
 	}
 
 	return litCount
+}
+
+func getLightPower(lights []uint8) int {
+	power := 0
+
+	for _, c := range lights {
+		power += int(c)
+	}
+
+	return power
 }
 
 func parseIns(ins string) (*Coords, string) {
@@ -80,26 +92,42 @@ func parseIns(ins string) (*Coords, string) {
 }
 
 func toggleLights(lights *[]uint8, vals *Coords, action string, rowSize int) {
-	// To calculate where to Start & end:
-	// (Y * rowSize) + X
 
-	start := (vals.aEnd * rowSize) + vals.aStart
-	end := (vals.bEnd * rowSize) + vals.bStart
+	for x := vals.aStart; x <= vals.bStart; x++ {
+		for y := vals.aEnd; y <= vals.bEnd; y++ {
+			i := (rowSize * x) + y
 
-	// fmt.Printf("%s - s: {%d, %d} e: {%d, %d} Count: %d \n", action, vals.aStart, vals.aEnd, vals.bStart, vals.bEnd, (end - start))
-
-	// Potentially need end + 1
-	for i := start; i <= end; i++ {
-		switch action {
-		case "TURNON":
-			(*lights)[i] = 1
-		case "TURNOFF":
-			(*lights)[i] = 0
-		case "TOGGLE":
-			if (*lights)[i] == 1 {
-				(*lights)[i] = 0
-			} else {
+			switch action {
+			case "TURNON":
 				(*lights)[i] = 1
+			case "TURNOFF":
+				(*lights)[i] = 0
+			case "TOGGLE":
+				if (*lights)[i] == 1 {
+					(*lights)[i] = 0
+				} else {
+					(*lights)[i] = 1
+				}
+			}
+		}
+	}
+}
+
+func toggleLightsPart2(lights *[]uint8, vals *Coords, action string, rowSize int) {
+
+	for x := vals.aStart; x <= vals.bStart; x++ {
+		for y := vals.aEnd; y <= vals.bEnd; y++ {
+			i := (rowSize * x) + y
+
+			switch action {
+			case "TURNON":
+				(*lights)[i]++
+			case "TURNOFF":
+				if (*lights)[i] > 0 {
+					(*lights)[i]--
+				}
+			case "TOGGLE":
+				(*lights)[i] += 2
 			}
 		}
 	}

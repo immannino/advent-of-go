@@ -14,3 +14,15 @@ func GetData(path string) string {
 
 	return string(data)
 }
+
+func GetDataBytes(path string) []byte {
+	data, err := ioutil.ReadFile(path)
+
+	if err != nil {
+		log.Fatal(err)
+
+		return data
+	}
+
+	return data
+}
