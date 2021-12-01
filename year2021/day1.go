@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-// Day1 -- Not Quite Lisp
+// --- Day 1: Sonar Sweep ---
 func Day1() {
 	data := utils.GetData("data/2021/day1.txt")
 	rows := strings.Split(data, "\r\n")
@@ -42,7 +42,7 @@ func Day1() {
 		previous = m
 	}
 
-	fmt.Printf("Day 1: { 1: %d, 2: %d }\n", part1, part2)
+	fmt.Printf("--- Day 1: Sonar Sweep --- { 1: %d, 2: %d }\n", part1, part2)
 }
 
 func getTMSWSum(start int, rows []string) int {
