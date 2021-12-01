@@ -1,7 +1,7 @@
 package main
 
 import (
-	"advent-of-code/year2015"
+	"advent-of-code/year2021"
 	"fmt"
 	"time"
 )
@@ -11,14 +11,16 @@ func main() {
 
 	start := time.Now()
 
-	year2015.Day1()
-	year2015.Day2()
-	year2015.Day3()
-	year2015.Day4()
-	year2015.Day5()
-	year2015.Day6()
-	// year2015.Day7()
-	year2015.Day8()
+	// year2015.Day1()
+	// year2015.Day2()
+	// year2015.Day3()
+	// year2015.Day4()
+	// year2015.Day5()
+	// year2015.Day6()
+	// // year2015.Day7()
+	// year2015.Day8()
+
+	year2021.Day1()
 
 	elapsed := time.Since(start)
 
