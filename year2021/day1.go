@@ -10,7 +10,7 @@ import (
 // --- Day 1: Sonar Sweep ---
 func Day1() {
 	data := utils.GetData("data/2021/day1.txt")
-	rows := strings.Split(data, "\r\n")
+	rows := strings.Split(data, "\n")
 	part1 := -1
 	previous := 0
 
