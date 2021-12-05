@@ -10,7 +10,7 @@ import (
 // --- Day 3: Binary Diagnostic ---
 func Day3() {
 	data := utils.GetData("data/2021/day3.txt")
-	rows := strings.Split(data, "\r\n")
+	rows := strings.Split(data, "\n")
 	gammaStr := ""   // Most common bit
 	epsilonStr := "" // Inverse of Gamma
 	counts := make([]int, len(rows[0]))

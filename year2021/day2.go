@@ -10,7 +10,7 @@ import (
 // --- Day 2: Dive! ---
 func Day2() {
 	data := utils.GetData("data/2021/day2.txt")
-	rows := strings.Split(data, "\r\n")
+	rows := strings.Split(data, "\n")
 	part1 := len(data)
 	part2 := 0
 
