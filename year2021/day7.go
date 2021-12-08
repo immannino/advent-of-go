@@ -15,7 +15,6 @@ func Day7() {
 	horizontals := make([]int, (min+max)+1)
 	horizontalsMultiplied := make([]int, (min+max)+1)
 
-	fmt.Println(summation(1), summation(2), summation(3), summation(4), summation(5))
 	for i := min; i <= max; i++ {
 		diff := 0
 		diff2 := 0
