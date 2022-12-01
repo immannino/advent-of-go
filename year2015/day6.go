@@ -1,7 +1,7 @@
 package year2015
 
 import (
-	"advent-of-code/utils"
+	"advent-of-code/pkg/data"
 	"fmt"
 	"strconv"
 	"strings"
@@ -15,7 +15,7 @@ type Coords struct {
 
 // Day6 -- Probably a Fire Hazard
 func Day6() {
-	data := utils.GetData("data/2015/day6.txt")
+	data := data.ReadAsString("data/2015/day6.txt")
 	list := strings.Split(data, "\r\n")
 	coords := make([]uint8, 1000000)
 	coords2 := make([]uint8, 1000000)

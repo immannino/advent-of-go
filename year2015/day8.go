@@ -1,15 +1,14 @@
 package year2015
 
 import (
-	"advent-of-code/utils"
+	"advent-of-code/pkg/data"
 	"fmt"
 	"strconv"
 )
 
 // Day6 -- Probably a Fire Hazard
 func Day8() {
-	data := utils.GetDataBytes("data/2015/day8.txt")
-	// data := utils.GetDataBytes("data/2015/day8_test.txt")
+	data := data.ReadAsBytes("data/2015/day8.txt")
 
 	real := 0
 	mem := 0

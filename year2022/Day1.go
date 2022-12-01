@@ -1,14 +1,14 @@
 package year2022
 
 import (
-	"advent-of-code/utils"
+	"advent-of-code/pkg/data"
 	"fmt"
 	"sort"
 	"strconv"
 	"strings"
 )
 
-var data string
+var input string
 var part1 int
 var part2 int
 var example string = `1000
@@ -28,9 +28,9 @@ var example string = `1000
 `
 
 func Day1() string {
-	data = utils.GetData("data/2022/day1.txt")
+	input = data.ReadAsString("data/2022/day1.txt")
 	// data = example
-	rows := strings.Split(data, "\n")
+	rows := strings.Split(input, "\n")
 
 	elves := []int{}
 	currentElf := 0

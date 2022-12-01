@@ -1,13 +1,13 @@
 package year2015
 
 import (
-	"advent-of-code/utils"
+	"advent-of-code/pkg/data"
 	"fmt"
 )
 
 // Day1 -- Not Quite Lisp
 func Day1() {
-	data := utils.GetData("data/2015/day1.txt")
+	data := data.ReadAsString("data/2015/day1.txt")
 
 	floor := 0
 	input := []rune(data)

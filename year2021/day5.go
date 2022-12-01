@@ -1,7 +1,7 @@
 package year2021
 
 import (
-	"advent-of-code/utils"
+	"advent-of-code/pkg/data"
 	"fmt"
 	"strconv"
 	"strings"
@@ -9,7 +9,7 @@ import (
 
 // --- Day 5: Hydrothermal Venture ---
 func Day5() {
-	data := utils.GetData("data/2021/day5.txt")
+	data := data.ReadAsString("data/2021/day5.txt")
 	rows := strings.Split(data, "\n")
 	collisions := make(map[string]int)
 	collisions2 := make(map[string]int)

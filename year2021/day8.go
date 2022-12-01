@@ -1,7 +1,7 @@
 package year2021
 
 import (
-	"advent-of-code/utils"
+	"advent-of-code/pkg/data"
 	"fmt"
 	"sort"
 	"strconv"
@@ -23,7 +23,7 @@ var sumMap = map[int]int{
 
 // --- Day 8: Seven Segment Search ---
 func Day8() {
-	data := utils.GetData("data/2021/day8.txt")
+	data := data.ReadAsString("data/2021/day8.txt")
 	inputs := strings.Split(data, "\n")
 	part1 := 0
 	part2 := 0

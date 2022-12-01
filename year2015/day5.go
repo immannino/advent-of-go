@@ -1,7 +1,7 @@
 package year2015
 
 import (
-	"advent-of-code/utils"
+	"advent-of-code/pkg/data"
 	"fmt"
 	"strings"
 )
@@ -10,7 +10,7 @@ var data5 string
 
 // Day5 -- Perfectly Spherical Houses in a Vacuum
 func Day5() {
-	data5 = utils.GetData("data/2015/day5.txt")
+	data5 = data.ReadAsString("data/2015/day5.txt")
 
 	list := strings.Split(data5, "\n")
 	count := 0

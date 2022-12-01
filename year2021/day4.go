@@ -1,7 +1,7 @@
 package year2021
 
 import (
-	"advent-of-code/utils"
+	"advent-of-code/pkg/data"
 	"fmt"
 	"strconv"
 	"strings"
@@ -19,7 +19,7 @@ type BingoNumber struct {
 
 // --- Day 4: Giant Squid ---
 func Day4() {
-	data := utils.GetData("data/2021/day4.txt")
+	data := data.ReadAsString("data/2021/day4.txt")
 	rows := strings.Split(data, "\n\n")
 	bingoNumStrings, rows := strings.Split(rows[0], ","), rows[1:]
 	bingoNums := make([]int, len(bingoNumStrings))

@@ -1,13 +1,13 @@
 package year2015
 
 import (
-	"advent-of-code/utils"
+	"advent-of-code/pkg/data"
 	"fmt"
 )
 
 // Day3 -- Perfectly Spherical Houses in a Vacuum
 func Day3() {
-	data := utils.GetData("data/2015/day3.txt")
+	data := data.ReadAsString("data/2015/day3.txt")
 	coords := []rune(data)
 	visited := make(map[string]bool)
 	pos := []int{0, 0}

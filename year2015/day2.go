@@ -1,7 +1,7 @@
 package year2015
 
 import (
-	"advent-of-code/utils"
+	"advent-of-code/pkg/data"
 	"fmt"
 	"sort"
 	"strconv"
@@ -10,7 +10,7 @@ import (
 
 // Day2 -- I Was Told There Would Be No Math
 func Day2() {
-	data := utils.GetData("data/2015/day2.txt")
+	data := data.ReadAsString("data/2015/day2.txt")
 	boxes := strings.Split(data, "\n")
 
 	totalArea := 0

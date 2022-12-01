@@ -1,7 +1,7 @@
 package year2021
 
 import (
-	"advent-of-code/utils"
+	"advent-of-code/pkg/data"
 	"fmt"
 	"strconv"
 	"strings"
@@ -9,7 +9,7 @@ import (
 
 // --- Day 7: The Treachery of Whales ---
 func Day7() {
-	data := utils.GetData("data/2021/day7.txt")
+	data := data.ReadAsString("data/2021/day7.txt")
 	rows := strings.Split(data, ",")
 	crabs, min, max := getCrabs(rows)
 	horizontals := make([]int, (min+max)+1)

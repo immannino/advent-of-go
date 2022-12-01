@@ -1,7 +1,7 @@
 package year2021
 
 import (
-	"advent-of-code/utils"
+	"advent-of-code/pkg/data"
 	"fmt"
 	"strconv"
 	"strings"
@@ -9,7 +9,7 @@ import (
 
 // --- Day 3: Binary Diagnostic ---
 func Day3() {
-	data := utils.GetData("data/2021/day3.txt")
+	data := data.ReadAsString("data/2021/day3.txt")
 	rows := strings.Split(data, "\n")
 	gammaStr := ""   // Most common bit
 	epsilonStr := "" // Inverse of Gamma

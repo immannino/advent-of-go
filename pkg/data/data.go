@@ -1,11 +1,11 @@
-package utils
+package data
 
 import (
 	"io/ioutil"
 	"log"
 )
 
-func GetData(path string) string {
+func ReadAsString(path string) string {
 	data, err := ioutil.ReadFile(path)
 
 	if err != nil {
@@ -15,7 +15,7 @@ func GetData(path string) string {
 	return string(data)
 }
 
-func GetDataBytes(path string) []byte {
+func ReadAsBytes(path string) []byte {
 	data, err := ioutil.ReadFile(path)
 
 	if err != nil {
