@@ -12,60 +12,17 @@ func Day5() string {
 	var part1 string
 	var part2 string
 
-	//     [D]
-	// [N] [C]
-	// [Z] [M] [P]
-	//  1   2   3
-	// Test input
-	// stacks := []string{
-	// 	"ZN",
-	// 	"MCD",
-	// 	"P",
-	// }
-
-	// stacksPart2 := []string{
-	// 	"ZN",
-	// 	"MCD",
-	// 	"P",
-	// }
-
-	// 	       [Q]     [G]     [M]
-	// 	       [B] [S] [V]     [P] [R]
-	//     [T]     [C] [F] [L]     [V] [N]
-	// [Q] [P]     [H] [N] [S]     [W] [C]
-	// [F] [G] [B] [J] [B] [N]     [Z] [L]
-	// [L] [Q] [Q] [Z] [M] [Q] [F] [G] [D]
-	// [S] [Z] [M] [G] [H] [C] [C] [H] [Z]
-	// [R] [N] [S] [T] [P] [P] [W] [Q] [G]
-	//  1   2   3   4   5   6   7   8   9
-	stacks := []string{
-		"RSLFQ",
-		"NZQGPT",
-		"SMQB",
-		"TGZJHCBQ",
-		"PHMBNFS",
-		"PCQNSLVG",
-		"WCF",
-		"QHGZWVPM",
-		"GZDLCNR",
-	}
-
-	stacksPart2 := []string{
-		"RSLFQ",
-		"NZQGPT",
-		"SMQB",
-		"TGZJHCBQ",
-		"PHMBNFS",
-		"PCQNSLVG",
-		"WCF",
-		"QHGZWVPM",
-		"GZDLCNR",
-	}
-
 	input := data.ReadAsString("data/2022/day5.txt")
-	instructions := strings.Split(input, "\n")
+	instructions := strings.Split(input, "\n\n")
+	stacks, cols := parseBoxes(instructions[0])
+	stacksPart2 := make([]string, cols)
 
-	for _, line := range instructions {
+	copy(stacksPart2, stacks)
+
+	actions := strings.Split(instructions[1], "\n")
+
+	fmt.Println(len(stacks), len(stacksPart2), len(actions))
+	for _, line := range actions {
 		// Part 1
 		count, from, to := parseSupplyLine(line)
 		// Find items to move
@@ -105,6 +62,30 @@ func print(s []string) {
 	for i, v := range s {
 		fmt.Printf("%d: %v\n", i, v)
 	}
+}
+
+func parseBoxes(input string) ([]string, int) {
+	lines := strings.Split(input, "\n")
+	linesWithout := lines[:len(lines)-1]
+	cols := (len(lines[0]) / 4) + 1
+	boxes := make([]string, cols)
+
+	for _, l := range linesWithout {
+		l += " " // Pad a space
+		for i := 0; i < cols; i++ {
+			item := l[i*4 : (i*4)+4]
+			if string(item[0]) == "[" {
+				val := strings.Trim(item, " []")
+				boxes[i] += val
+			}
+		}
+	}
+
+	for i := range boxes {
+		boxes[i] = util.Reverse(boxes[i])
+	}
+
+	return boxes, cols
 }
 
 func parseSupplyLine(i string) (int, int, int) {
