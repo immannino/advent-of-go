@@ -40,6 +40,6 @@ Completed: **7/25** (28%)
 
 ## Past AoC Projects
 
-[aoc.spaghet.me](aoc.spaghet.me) - 2022 Solutions using Web Workers [github](https://github.com/immannino/aoc-2020)
+[aoc.spaghet.me](https://aoc.spaghet.me) - 2022 Solutions using Web Workers [github](https://github.com/immannino/aoc-2020)
 
 [Original attempts 2017-2018](https://github.com/immannino/AdventOfCode)
