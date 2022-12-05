@@ -7,8 +7,10 @@ import (
 
 func Solve() {
 	PrintIntro()
-	// util.Time(util.PrintFunc(Day1))
-	util.Time(util.PrintFunc(Day2))
+	fmt.Println(util.Time(Day1))
+	fmt.Println(util.Time(Day2))
+	fmt.Println(util.Time(Day3))
+	fmt.Println(util.Time(Day4))
 }
 
 func PrintIntro() {

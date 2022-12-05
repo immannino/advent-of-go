@@ -1,13 +1,16 @@
 package util
 
-import "time"
+import (
+	"fmt"
+	"time"
+)
 
-func Time(f func()) time.Duration {
+func Time(f func() string) string {
 	s := time.Now()
 
-	f()
+	o := f()
 
 	e := time.Since(s)
 
-	return e
+	return fmt.Sprintf("%s - %v", o, e)
 }
