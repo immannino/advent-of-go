@@ -22,11 +22,37 @@ func Day4() string {
 	for _, c := range coords {
 		// time.Sleep(time.Second * 3)
 		parts := strings.Split(c, ",")
-		a := expand(parse(parts[0]))
-		b := expand(parse(parts[1]))
 
-		if strings.Contains(a, b) || strings.Contains(b, a) {
+		aStart, aEnd := parse(parts[0])
+		bStart, bEnd := parse(parts[1])
+
+		// Part 1 comparisons
+		if bStart >= aStart && bEnd <= aEnd {
 			part1 += 1
+			continue
+		}
+
+		if aStart >= bStart && aEnd <= bEnd {
+			part1 += 1
+		}
+	}
+
+	for _, c := range coords {
+		parts := strings.Split(c, ",")
+		aStart, aEnd := parse(parts[0])
+		bStart, bEnd := parse(parts[1])
+
+		m := make(map[int]bool)
+
+		for i := aStart; i <= aEnd; i++ {
+			m[i] = true
+		}
+
+		for i := bStart; i <= bEnd; i++ {
+			if _, exists := m[i]; exists {
+				part2 += 1
+				break
+			}
 		}
 	}
 	return fmt.Sprintf("---| Day 4 Camp Cleanup - 1: %d 2: %d |---\n", part1, part2)
@@ -50,14 +76,4 @@ func parse(s string) (int, int) {
 	}
 
 	return int(a), int(b)
-}
-
-func expand(b, e int) string {
-	var s string
-
-	for i := b; i <= e; i++ {
-		s += fmt.Sprintf("%s,", strconv.Itoa(i))
-	}
-
-	return s
 }

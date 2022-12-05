@@ -6,11 +6,11 @@ import (
 )
 
 func Solve() {
-	PrintIntro()
-	fmt.Println(util.Time(Day1))
-	fmt.Println(util.Time(Day2))
-	fmt.Println(util.Time(Day3))
-	fmt.Println(util.Time(Day4))
+	// fmt.Println(util.Time(Day1))
+	// fmt.Println(util.Time(Day2))
+	// fmt.Println(util.Time(Day3))
+	// fmt.Println(util.Time(Day4))
+	fmt.Println(util.Time(Day5))
 }
 
 func PrintIntro() {

@@ -4,13 +4,13 @@
 
 ## 2022 Puzzles
 
-Completed: **2/25** (8%)
+Completed: **5/25** (20%)
 
 - [Day 1](./year2022/day1.go) - ⭐️ ⭐️
 - [Day 2](./year2022/day2.go) - ⭐️ ⭐️
 - [Day 3](./year2022/day3.go) - ⭐️ ⭐️
-- [Day 4](./year2022/day4.go) - 
-- [Day 5](./year2022/day5.go) - 
+- [Day 4](./year2022/day4.go) - ⭐️ ⭐️
+- [Day 5](./year2022/day5.go) - ⭐️ ⭐️
 
 ## 2021 Puzzles
 
