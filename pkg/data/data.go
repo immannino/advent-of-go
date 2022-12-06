@@ -3,10 +3,11 @@ package data
 import (
 	"io/ioutil"
 	"log"
+	"path/filepath"
 )
 
 func ReadAsString(path string) string {
-	data, err := ioutil.ReadFile(path)
+	data, err := ioutil.ReadFile(filepath.Join(path))
 
 	if err != nil {
 		log.Fatal(err)
@@ -16,7 +17,7 @@ func ReadAsString(path string) string {
 }
 
 func ReadAsBytes(path string) []byte {
-	data, err := ioutil.ReadFile(path)
+	data, err := ioutil.ReadFile(filepath.Join(path))
 
 	if err != nil {
 		log.Fatal(err)

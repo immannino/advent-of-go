@@ -11,6 +11,7 @@ Completed: **5/25** (20%)
 - [Day 3](./year2022/day3.go) - ⭐️ ⭐️
 - [Day 4](./year2022/day4.go) - ⭐️ ⭐️
 - [Day 5](./year2022/day5.go) - ⭐️ ⭐️
+- [Day 6](./year2022/day6.go) - ⭐️ ⭐️
 
 ## 2021 Puzzles
 

@@ -10,7 +10,8 @@ func Solve() {
 	// fmt.Println(util.Time(Day2))
 	// fmt.Println(util.Time(Day3))
 	// fmt.Println(util.Time(Day4))
-	fmt.Println(util.Time(Day5))
+	// fmt.Println(util.Time(Day5))
+	fmt.Println(util.Time(Day6))
 }
 
 func PrintIntro() {
