@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func Day4() string {
+func Day4() []string {
 	var part1 int
 	var part2 int
 	// 	var example string = `2-4,6-8
@@ -55,7 +55,8 @@ func Day4() string {
 			}
 		}
 	}
-	return fmt.Sprintf("---| Day 4 Camp Cleanup - 1: %d 2: %d |---\n", part1, part2)
+
+	return []string{"Day 4: Camp Cleanup", strconv.Itoa(part1), strconv.Itoa(part2)}
 
 }
 

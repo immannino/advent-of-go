@@ -3,6 +3,7 @@ package year2022
 import (
 	"advent-of-code/pkg/data"
 	"fmt"
+	"strconv"
 	"strings"
 )
 
@@ -45,7 +46,7 @@ var playerOppWinOutcomes = map[string]bool{
 	"SCISSORS-PAPER": true,
 }
 
-func Day2() string {
+func Day2() []string {
 	var input string
 	var part1 int
 	var part2 int
@@ -69,7 +70,7 @@ func Day2() string {
 		part2 += newScore
 	}
 
-	return fmt.Sprintf("---| Day 2 Rock Paper Scissors - 1: %d 2: %d |---\n", part1, part2)
+	return []string{"Day 2: Rock Paper Scissors", strconv.Itoa(part1), strconv.Itoa(part2)}
 }
 
 func judge(player string, opp string) string {

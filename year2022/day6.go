@@ -2,15 +2,15 @@ package year2022
 
 import (
 	"advent-of-code/pkg/data"
-	"fmt"
+	"strconv"
 )
 
-func Day6() string {
+func Day6() []string {
 	input := data.ReadAsString("data/2022/day6.txt")
 	part1 := find(input, 4)
 	part2 := find(input, 14)
 
-	return fmt.Sprintf("---| Day 6: Tuning Trouble - 1: %d 2: %d |---\n", part1, part2)
+	return []string{"Day 6: Tuning Trouble", strconv.Itoa(part1), strconv.Itoa(part2)}
 }
 
 func find(input string, coef int) int {

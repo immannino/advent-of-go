@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func Day5() string {
+func Day5() []string {
 	var part1 string
 	var part2 string
 
@@ -54,8 +54,7 @@ func Day5() string {
 		}
 	}
 
-	return fmt.Sprintf("---| Day 5: Supply Stacks - 1: %s 2: %v |---\n", part1, part2)
-
+	return []string{"Day 5: Supply Stacks", part1, part2}
 }
 
 func print(s []string) {

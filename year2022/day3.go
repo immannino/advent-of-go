@@ -2,11 +2,11 @@ package year2022
 
 import (
 	"advent-of-code/pkg/data"
-	"fmt"
+	"strconv"
 	"strings"
 )
 
-func Day3() string {
+func Day3() []string {
 	var part1 int
 	var part2 int
 
@@ -48,6 +48,5 @@ func Day3() string {
 		}
 	}
 
-	return fmt.Sprintf("---| Day 3 Rocksack Reorganization - 1: %d 2: %d |---\n", part1, part2)
-
+	return []string{"Day 3: Rocksack Reorganization", strconv.Itoa(part1), strconv.Itoa(part2)}
 }

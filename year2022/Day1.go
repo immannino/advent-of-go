@@ -2,13 +2,12 @@ package year2022
 
 import (
 	"advent-of-code/pkg/data"
-	"fmt"
 	"sort"
 	"strconv"
 	"strings"
 )
 
-func Day1() string {
+func Day1() []string {
 	var input string
 	var part1 int
 	var part2 int
@@ -52,5 +51,5 @@ func Day1() string {
 
 	part2 = elves[0] + elves[1] + elves[2]
 
-	return fmt.Sprintf("---| Day 1 Calorie Counting - 1: %d 2: %d |---\n", part1, part2)
+	return []string{"Day 1: Calorie Counting", strconv.Itoa(part1), strconv.Itoa(part2)}
 }
