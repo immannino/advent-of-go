@@ -3,7 +3,6 @@ package year2022
 import (
 	table "advent-of-code/pkg/table"
 	"advent-of-code/pkg/util"
-	"fmt"
 )
 
 func Solve() {
@@ -14,13 +13,8 @@ func Solve() {
 		util.TimeAppend(Day4),
 		util.TimeAppend(Day5),
 		util.TimeAppend(Day6),
+		util.TimeAppend(Day7),
 	}
 
 	table.Print(v)
-}
-
-func PrintIntro() {
-	s := `Welcome to blah
-`
-	fmt.Println(s)
 }
