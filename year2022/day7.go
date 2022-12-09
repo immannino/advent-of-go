@@ -16,49 +16,58 @@ type File struct {
 	fileType string
 	size     int
 	children []*File
+	parent   *File
+	depth    int
 }
 
-func ParentOf(name string, parent *File) *File {
+func ParentOf(child *File, parent *File) *File {
+	// fmt.Printf("Looking for parent of %s, have %s, type: %s\n", name, parent.name, parent.fileType)
+	if parent.fileType == "file" {
+		return nil
+	}
+
 	for _, c := range parent.children {
-		if c.name == name {
+		if c.name == child.name && c.depth == child.depth {
 			return parent
 		}
 	}
 
 	for _, c := range parent.children {
-		return ParentOf(name, c)
+		r := ParentOf(child, c)
+		if r != nil {
+			return r
+		}
 	}
 
 	// For compiler
 	return nil
 }
 
-func Find(name string, node *File) *File {
+func Find(name string, depth int, node *File) *File {
 	// fmt.Printf("Looking for: %s, At: %s\n", name, node.name)
 
-	if name == node.name {
+	if name == node.name && depth == node.depth {
 		return node
 	}
 
 	for _, n := range node.children {
 		// Only crawl dirs
 		if n.fileType == "dir" {
-			return Find(name, n)
+			r := Find(name, depth, n)
+			if r != nil {
+				return r
+			}
 		}
 	}
 
 	// For compiler
-	return node
+	return nil
 }
 
-func Sum(current, threshold int, node *File) int {
+func Sum(sum uint64, node *File) uint64 {
+	fmt.Println(sum, node.name)
 	if node.fileType == "file" {
-		if node.size < threshold {
-			fmt.Println("PASSED: ", node)
-			return node.size
-		}
-
-		return 0
+		return uint64(node.size)
 	}
 
 	if node.fileType == "dir" && len(node.children) == 0 {
@@ -66,33 +75,15 @@ func Sum(current, threshold int, node *File) int {
 	}
 
 	for _, c := range node.children {
-		// fmt.Println("child loop ", c.name, c.fileType, c.size, len(node.children))
-		current += Sum(current, threshold, c)
+		sum += Sum(sum, c)
 	}
 
-	return current
+	return sum
 }
 
-func Sums(current, threshold int, node *File) int {
-	if node.fileType == "file" {
-		if node.size < threshold {
-			fmt.Println("PASSED: ", node)
-			return node.size
-		}
-
-		return 0
-	}
-
-	if node.fileType == "dir" && len(node.children) == 0 {
-		return 0
-	}
-
-	for _, c := range node.children {
-		// fmt.Println("child loop ", c.name, c.fileType, c.size, len(node.children))
-		current += Sum(current, threshold, c)
-	}
-
-	return current
+func Walk(depth int, node *File) *File {
+	// Pint stuf f
+	return nil
 }
 
 func Day7() []string {
@@ -104,28 +95,49 @@ func Day7() []string {
 		name:     "root",
 		fileType: "dir",
 		children: []*File{},
+		depth:    0,
+		parent:   nil,
 	}
 
 	// Build tree
 	var curr *File
 
 	for _, line := range cmds {
+		if curr != nil {
+			fmt.Println("command: ", line, curr.name, len(curr.children))
+
+			// time.Sleep(1 * time.Second)
+			fmt.Println()
+			if curr.name != "root" {
+				PrintDir(ParentOf(curr, root))
+			}
+			fmt.Println()
+		}
 		if strings.Contains(line, "$ cd") {
 			path := strings.Replace(line, "$ cd ", "", 1)
 
 			if path == ".." {
 				// traverse up
+				if curr.name != "root" {
+					// fmt.Println("Searching for Parent of: ", curr.name)
+					// curr = ParentOf(curr, root)
+					curr = curr.parent
+					// fmt.Println("Found Parent: ", curr.name)
+				}
+				// if curr.name != "root" {
 				// fmt.Println("Searching for Parent of: ", curr.name)
-				curr = ParentOf(curr.name, root)
+				// curr = ParentOf(curr.name, root)
 				// fmt.Println("Found Parent: ", curr.name)
+				// }
 			} else if path == "/" {
 				// fmt.Println("Set root")
 				curr = root
 			} else {
 				// Switch to previously declared node
-				// fmt.Println("Finding node: ", path)
-				curr = Find(path, root)
-				// fmt.Println("Found node: ", curr.name)
+				curr = Find(path, curr.depth+1, root)
+				if path != curr.name {
+					panic(fmt.Sprintf("Found wrong node. Expected %s, got %s", path, curr.name))
+				}
 			}
 
 			continue
@@ -139,11 +151,13 @@ func Day7() []string {
 		if strings.Contains(line, "dir ") {
 			path := strings.Replace(line, "dir ", "", 1)
 			// Append new dir to current children
-			// fmt.Println(root, curr)
 			curr.children = append(curr.children, &File{
 				name:     path,
 				fileType: "dir",
 				children: []*File{},
+				size:     0,
+				parent:   curr,
+				depth:    curr.depth + 1,
 			})
 			continue
 		}
@@ -155,12 +169,61 @@ func Day7() []string {
 			name:     parts[1],
 			fileType: "file",
 			size:     int(size),
+			depth:    curr.depth + 1,
+			parent:   curr,
 		})
 	}
 
 	// Part1 Answer
+	queue := []*File{root}
+	sums := []uint64{}
+	names := []string{}
 
-	part1 = Sum(0, PART_1_THRESHOLD, root)
+	c := 0
+	for len(queue) > 0 {
+		current := queue[0] // Fetch
+		queue = queue[1:]   // Pop
+
+		if current.fileType == "dir" {
+			for _, c := range current.children {
+				fmt.Printf("Child of %s - %s - %d\n", current.name, c.name, c.size)
+			}
+			s := Sum(0, current)
+			fmt.Printf("Summing %v, val: %d \n", current.name, s)
+			fmt.Println()
+			sums = append(sums, s)
+			names = append(names, current.name)
+		}
+
+		queue = append(queue, current.children...)
+		// time.Sleep(1 * time.Second)
+		c += 1
+	}
+
+	for i, v := range sums {
+		if v <= PART_1_THRESHOLD {
+			fmt.Println(names[i], v)
+			part1 += int(v)
+		}
+	}
 
 	return []string{"Day 7: No Space Left On Device", strconv.Itoa(part1), strconv.Itoa(part2)}
+}
+
+func PrintDir(f *File) *File {
+	fmt.Printf("%s %s\n", strings.Repeat("\t", f.depth), f.name)
+
+	if f.fileType == "file" {
+		return nil
+	}
+
+	for _, c := range f.children {
+		s := PrintDir(c)
+
+		if s != nil {
+			return s
+		}
+	}
+
+	return nil
 }
