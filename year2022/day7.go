@@ -43,6 +43,7 @@ func ParentOf(child *File, parent *File) *File {
 	return nil
 }
 
+// DFS
 func Find(name string, depth int, node *File) *File {
 	// fmt.Printf("Looking for: %s, At: %s\n", name, node.name)
 
@@ -61,6 +62,23 @@ func Find(name string, depth int, node *File) *File {
 	}
 
 	// For compiler
+	return nil
+}
+
+func FindBFS(name string, depth int, node *File) *File {
+	queue := []*File{node}
+
+	for len(queue) > 0 {
+		current := queue[0] // Fetch
+		queue = queue[1:]   // Pop
+
+		if current.name == name && current.depth == depth {
+			return current
+		}
+
+		queue = append(queue, current.children...)
+	}
+
 	return nil
 }
 
@@ -109,7 +127,8 @@ func Day7() []string {
 			// time.Sleep(1 * time.Second)
 			fmt.Println()
 			if curr.name != "root" {
-				PrintDir(ParentOf(curr, root))
+				// PrintDir(ParentOf(curr, root))
+				PrintDir(root)
 			}
 			fmt.Println()
 		}
@@ -134,7 +153,7 @@ func Day7() []string {
 				curr = root
 			} else {
 				// Switch to previously declared node
-				curr = Find(path, curr.depth+1, root)
+				curr = FindBFS(path, curr.depth+1, root)
 				if path != curr.name {
 					panic(fmt.Sprintf("Found wrong node. Expected %s, got %s", path, curr.name))
 				}
