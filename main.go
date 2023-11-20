@@ -1,7 +1,9 @@
 package main
 
-import "advent-of-code/year2022"
+import (
+	"advent-of-code/cmd"
+)
 
 func main() {
-	year2022.Solve()
+	cmd.Start()
 }

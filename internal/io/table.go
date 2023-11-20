@@ -1,4 +1,4 @@
-package table
+package io
 
 import (
 	"github.com/fatih/color"
