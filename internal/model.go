@@ -86,5 +86,18 @@ func (y Year) SolvePretty() {
 	end := time.Since(start)
 	r = append(r, []string{"Total", "", "", fmt.Sprintf("%v", end)})
 	io.Print(r)
+}
 
+func (y Year) SolvePrettyToString() string {
+	start := time.Now()
+	r := [][]string{{y.Title, "", "", ""}}
+
+	for _, d := range y.Puzzles {
+		r = append(r, d.RunWithTable())
+	}
+
+	end := time.Since(start)
+	r = append(r, []string{"Total", "", "", fmt.Sprintf("%v", end)})
+
+	return io.ToString(r)
 }

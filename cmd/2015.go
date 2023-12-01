@@ -11,7 +11,7 @@ import (
 	"strings"
 )
 
-func NewYear2015() internal.YearInterface {
+func NewYear2015() internal.Year {
 	Days := []internal.PuzzleInterface{
 		internal.NewPuzzle(1, "Day 1: Not Quite Lisp", Day1_2015),
 		internal.NewPuzzle(2, "Day 2: I Was Told There Would Be No Math", Day2_2015),

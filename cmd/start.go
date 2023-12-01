@@ -1,6 +1,9 @@
 package cmd
 
 import (
+	"bytes"
+	"html/template"
+	"io/ioutil"
 	"log"
 	"os"
 
@@ -81,10 +84,59 @@ func Start() {
 					return nil
 				},
 			},
+			{
+				Name:   "readme",
+				Action: GenerateReadme,
+			},
 		},
 	}
 
 	if err := app.Run(os.Args); err != nil {
 		log.Fatal(err)
 	}
+}
+
+const readmeTemplate = `# Advent of Go
+
+> Golang solutions to Advent of Code
+
+## Completed Solutions
+
+{{range $val := .}}
+
+{{ $val }}
+
+{{end}}
+
+## Past AoC Projects
+
+[aoc.spaghet.me](https://aoc.spaghet.me) - 2022 Solutions using Web Workers [github](https://github.com/immannino/aoc-2020)
+
+[Original attempts 2017-2018](https://github.com/immannino/AdventOfCode)`
+
+func GenerateReadme(ctx *cli.Context) error {
+	solutions := []string{
+		NewYear2023().SolvePrettyToString(),
+		NewYear2022().SolvePrettyToString(),
+		NewYear2021().SolvePrettyToString(),
+		NewYear2015().SolvePrettyToString(),
+	}
+
+	t := template.Must(template.New("").Parse(readmeTemplate))
+
+	var b bytes.Buffer
+	err := t.Execute(&b, solutions)
+	if err != nil {
+		log.Println("error executing template, " + err.Error())
+		return err
+	}
+
+	err = ioutil.WriteFile("./README.md", b.Bytes(), 0644)
+	if err != nil {
+		log.Println("error creating README.md, " + err.Error())
+		return err
+	}
+
+	log.Println("Readme Successfully Created")
+	return nil
 }
