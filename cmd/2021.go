@@ -24,7 +24,7 @@ func NewYear2021() internal.Year {
 	return internal.Year{"Year 2021", Days}
 }
 
-func Day1_2021() (string, string) {
+func Day1_2021() internal.Answer {
 	data := data.ReadAsString("data/2021/day1.txt")
 	rows := strings.Split(data, "\n")
 	part1 := -1
@@ -58,7 +58,10 @@ func Day1_2021() (string, string) {
 		previous = m
 	}
 
-	return strconv.Itoa(part1), strconv.Itoa(part2)
+	return internal.Answer{
+		Part1: strconv.Itoa(part1),
+		Part2: strconv.Itoa(part2),
+	}
 }
 
 func getTMSWSum(start int, rows []string) int {
@@ -77,7 +80,7 @@ func getTMSWSum(start int, rows []string) int {
 	return sum
 }
 
-func Day2_2021() (string, string) {
+func Day2_2021() internal.Answer {
 	data := data.ReadAsString("data/2021/day2.txt")
 	rows := strings.Split(data, "\n")
 	part1 := len(data)
@@ -107,7 +110,10 @@ func Day2_2021() (string, string) {
 	part1 = horizontal * depth
 	part2 = horizontal * depth2
 
-	return strconv.Itoa(part1), strconv.Itoa(part2)
+	return internal.Answer{
+		Part1: strconv.Itoa(part1),
+		Part2: strconv.Itoa(part2),
+	}
 }
 
 func getNum(input string, sep string) int {
@@ -121,7 +127,7 @@ func getNum(input string, sep string) int {
 	return num
 }
 
-func Day3_2021() (string, string) {
+func Day3_2021() internal.Answer {
 	data := data.ReadAsString("data/2021/day3.txt")
 	rows := strings.Split(data, "\n")
 	gammaStr := ""   // Most common bit
@@ -161,7 +167,10 @@ func Day3_2021() (string, string) {
 	co2, _ := strconv.ParseInt(co2Str, 2, 64)
 	part2 := co2 * oxy
 
-	return strconv.Itoa(int(part1)), strconv.Itoa(int(part2))
+	return internal.Answer{
+		Part1: strconv.Itoa(int(part1)),
+		Part2: strconv.Itoa(int(part2)),
+	}
 }
 
 func filter(rows []string, str string, common bool, col int, rowSize int) string {
@@ -229,7 +238,7 @@ type BingoNumber struct {
 	checked bool
 }
 
-func Day4_2021() (string, string) {
+func Day4_2021() internal.Answer {
 	data := data.ReadAsString("data/2021/day4.txt")
 	rows := strings.Split(data, "\n\n")
 	bingoNumStrings, rows := strings.Split(rows[0], ","), rows[1:]
@@ -320,7 +329,10 @@ func Day4_2021() (string, string) {
 
 	part2 := unchecked * activeBingoNumber
 
-	return strconv.Itoa(part1), strconv.Itoa(part2)
+	return internal.Answer{
+		Part1: strconv.Itoa(part1),
+		Part2: strconv.Itoa(part2),
+	}
 }
 
 func prettyPrint(b []Board) {
@@ -420,7 +432,7 @@ func checkNonWinners(b []Board) []Board {
 	return temp
 }
 
-func Day5_2021() (string, string) {
+func Day5_2021() internal.Answer {
 	data := data.ReadAsString("data/2021/day5.txt")
 	rows := strings.Split(data, "\n")
 	collisions := make(map[string]int)
@@ -534,7 +546,10 @@ func Day5_2021() (string, string) {
 		}
 	}
 
-	return strconv.Itoa(part1), strconv.Itoa(part2)
+	return internal.Answer{
+		Part1: strconv.Itoa(part1),
+		Part2: strconv.Itoa(part2),
+	}
 }
 
 func getCoords(s string) (int, int, int, int) {
@@ -565,7 +580,7 @@ func getCoords(s string) (int, int, int, int) {
 	return x1, y1, x2, y2
 }
 
-func Day6_2021() (string, string) {
+func Day6_2021() internal.Answer {
 	data := data.ReadAsString("data/2021/day6.txt")
 	fishes := make([]int, 9)
 
@@ -605,10 +620,13 @@ func Day6_2021() (string, string) {
 		part2 += v
 	}
 
-	return strconv.Itoa(part1), strconv.Itoa(part2)
+	return internal.Answer{
+		Part1: strconv.Itoa(part1),
+		Part2: strconv.Itoa(part2),
+	}
 }
 
-func Day7_2021() (string, string) {
+func Day7_2021() internal.Answer {
 	data := data.ReadAsString("data/2021/day7.txt")
 	rows := strings.Split(data, ",")
 	crabs, min, max := getCrabs(rows)
@@ -649,7 +667,10 @@ func Day7_2021() (string, string) {
 	part1 := horizontals[smallest]
 	part2 := horizontalsMultiplied[smallestMult]
 
-	return strconv.Itoa(part1), strconv.Itoa(part2)
+	return internal.Answer{
+		Part1: strconv.Itoa(part1),
+		Part2: strconv.Itoa(part2),
+	}
 }
 
 func summation(n int) int {
@@ -692,7 +713,7 @@ func getCrabs(rows []string) ([]int, int, int) {
 	return nums, min, max
 }
 
-func Day8_2021() (string, string) {
+func Day8_2021() internal.Answer {
 	data := data.ReadAsString("data/2021/day8.txt")
 	inputs := strings.Split(data, "\n")
 	part1 := 0
@@ -770,7 +791,10 @@ func Day8_2021() (string, string) {
 		part2 += n
 	}
 
-	return strconv.Itoa(part1), strconv.Itoa(part2)
+	return internal.Answer{
+		Part1: strconv.Itoa(part1),
+		Part2: strconv.Itoa(part2),
+	}
 }
 
 func sorts(s string) string {

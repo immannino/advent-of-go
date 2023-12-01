@@ -24,7 +24,7 @@ func NewYear2022() internal.Year {
 	return internal.Year{"Year 2022", Days}
 }
 
-func Day1_2022() (string, string) {
+func Day1_2022() internal.Answer {
 	var input string
 	var part1 int
 	var part2 int
@@ -68,7 +68,10 @@ func Day1_2022() (string, string) {
 
 	part2 = elves[0] + elves[1] + elves[2]
 
-	return strconv.Itoa(part1), strconv.Itoa(part2)
+	return internal.Answer{
+		Part1: strconv.Itoa(part1),
+		Part2: strconv.Itoa(part2),
+	}
 }
 
 var oppHands = map[string]string{
@@ -110,7 +113,7 @@ var playerOppWinOutcomes = map[string]bool{
 	"SCISSORS-PAPER": true,
 }
 
-func Day2_2022() (string, string) {
+func Day2_2022() internal.Answer {
 	var input string
 	var part1 int
 	var part2 int
@@ -134,7 +137,10 @@ func Day2_2022() (string, string) {
 		part2 += newScore
 	}
 
-	return strconv.Itoa(part1), strconv.Itoa(part2)
+	return internal.Answer{
+		Part1: strconv.Itoa(part1),
+		Part2: strconv.Itoa(part2),
+	}
 }
 
 func judge(player string, opp string) string {
@@ -181,7 +187,7 @@ func determinePlayerMove(outcome string, opp string) string {
 	return ""
 }
 
-func Day3_2022() (string, string) {
+func Day3_2022() internal.Answer {
 	var part1 int
 	var part2 int
 
@@ -223,10 +229,13 @@ func Day3_2022() (string, string) {
 		}
 	}
 
-	return strconv.Itoa(part1), strconv.Itoa(part2)
+	return internal.Answer{
+		Part1: strconv.Itoa(part1),
+		Part2: strconv.Itoa(part2),
+	}
 }
 
-func Day4_2022() (string, string) {
+func Day4_2022() internal.Answer {
 	var part1 int
 	var part2 int
 	// 	var example string = `2-4,6-8
@@ -275,7 +284,10 @@ func Day4_2022() (string, string) {
 		}
 	}
 
-	return strconv.Itoa(part1), strconv.Itoa(part2)
+	return internal.Answer{
+		Part1: strconv.Itoa(part1),
+		Part2: strconv.Itoa(part2),
+	}
 
 }
 
@@ -298,7 +310,7 @@ func parseDay42022(s string) (int, int) {
 	return int(a), int(b)
 }
 
-func Day5_2022() (string, string) {
+func Day5_2022() internal.Answer {
 	var part1 string
 	var part2 string
 
@@ -344,7 +356,10 @@ func Day5_2022() (string, string) {
 		}
 	}
 
-	return part1, part2
+	return internal.Answer{
+		Part1: part1,
+		Part2: part2,
+	}
 }
 
 func print(s []string) {
@@ -407,12 +422,15 @@ func parseSupplyLine(i string) (int, int, int) {
 
 }
 
-func Day6_2022() (string, string) {
+func Day6_2022() internal.Answer {
 	input := data.ReadAsString("data/2022/day6.txt")
 	part1 := findDay62022(input, 4)
 	part2 := findDay62022(input, 14)
 
-	return strconv.Itoa(part1), strconv.Itoa(part2)
+	return internal.Answer{
+		Part1: strconv.Itoa(part1),
+		Part2: strconv.Itoa(part2),
+	}
 }
 
 func findDay62022(input string, coef int) int {
@@ -535,7 +553,7 @@ func Walk(depth int, node *File) *File {
 	return nil
 }
 
-func Day7_2022() (string, string) {
+func Day7_2022() internal.Answer {
 	input := data.ReadAsString("data/2022/day7.txt")
 	part1 := 0
 	part2 := 0
@@ -657,7 +675,10 @@ func Day7_2022() (string, string) {
 		}
 	}
 
-	return strconv.Itoa(part1), strconv.Itoa(part2)
+	return internal.Answer{
+		Part1: strconv.Itoa(part1),
+		Part2: strconv.Itoa(part2),
+	}
 }
 
 func PrintDir(f *File) *File {

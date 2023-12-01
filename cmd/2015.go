@@ -27,7 +27,7 @@ func NewYear2015() internal.Year {
 }
 
 // Day1 -- Not Quite Lisp
-func Day1_2015() (string, string) {
+func Day1_2015() internal.Answer {
 	data := data.ReadAsString("data/2015/day1.txt")
 
 	floor := 0
@@ -51,10 +51,13 @@ func Day1_2015() (string, string) {
 		}
 	}
 
-	return strconv.Itoa(floor), strconv.Itoa(position)
+	return internal.Answer{
+		Part1: strconv.Itoa(floor),
+		Part2: strconv.Itoa(position),
+	}
 }
 
-func Day2_2015() (string, string) {
+func Day2_2015() internal.Answer {
 	data := data.ReadAsString("data/2015/day2.txt")
 	boxes := strings.Split(data, "\n")
 
@@ -77,7 +80,10 @@ func Day2_2015() (string, string) {
 		totalRibbon += bowLength
 	}
 
-	return strconv.Itoa(totalArea), strconv.Itoa(totalRibbon)
+	return internal.Answer{
+		Part1: strconv.Itoa(totalArea),
+		Part2: strconv.Itoa(totalRibbon),
+	}
 }
 
 func parseDay2(dimensions string) (int, int, int) {
@@ -111,7 +117,7 @@ func getCubeVolume(l int, w int, h int) int {
 	return l * w * h
 }
 
-func Day3_2015() (string, string) {
+func Day3_2015() internal.Answer {
 	data := data.ReadAsString("data/2015/day3.txt")
 	coords := []rune(data)
 	visited := make(map[string]bool)
@@ -185,10 +191,13 @@ func Day3_2015() (string, string) {
 		}
 	}
 
-	return strconv.Itoa(len(visited)), strconv.Itoa(len(roboVisited))
+	return internal.Answer{
+		Part1: strconv.Itoa(len(visited)),
+		Part2: strconv.Itoa(len(roboVisited)),
+	}
 }
 
-func Day4_2015() (string, string) {
+func Day4_2015() internal.Answer {
 	// data := "yzbqklnj"
 
 	h := md5.New()
@@ -200,10 +209,10 @@ func Day4_2015() (string, string) {
 
 	// fmt.Printf("Day 4: { 1: %d, 2: %d }\n", h.Sum(nil), 0)
 	// fmt.Printf("Day 4: Learn MD5 hash\n")
-	return "", ""
+	return internal.Answer{}
 }
 
-func Day5_2015() (string, string) {
+func Day5_2015() internal.Answer {
 	data := data.ReadAsString("data/2015/day5.txt")
 	list := strings.Split(data, "\n")
 	count := 0
@@ -220,7 +229,11 @@ func Day5_2015() (string, string) {
 		}
 	}
 
-	return strconv.Itoa(count), strconv.Itoa(count2)
+	return internal.Answer{
+		Part1: strconv.Itoa(count),
+		Part2: strconv.Itoa(count2),
+	}
+
 }
 
 // ---- Part 1
@@ -338,7 +351,7 @@ type Coords struct {
 	bStart, bEnd int
 }
 
-func Day6_2015() (string, string) {
+func Day6_2015() internal.Answer {
 	data := data.ReadAsString("data/2015/day6.txt")
 	list := strings.Split(data, "\r\n")
 	coords := make([]uint8, 1000000)
@@ -355,7 +368,10 @@ func Day6_2015() (string, string) {
 	litCount := getLightCount(coords)
 	litCount2 := getLightPower(coords2)
 
-	return strconv.Itoa(litCount), strconv.Itoa(litCount2)
+	return internal.Answer{
+		Part1: strconv.Itoa(litCount),
+		Part2: strconv.Itoa(litCount2),
+	}
 }
 
 func getLightCount(lights []uint8) int {
@@ -465,7 +481,7 @@ func fancyPrint(lights *[]uint8, rowSize int) {
 	// }
 }
 
-func Day8_2015() (string, string) {
+func Day8_2015() internal.Answer {
 	data := data.ReadAsBytes("data/2015/day8.txt")
 
 	real := 0
@@ -516,10 +532,13 @@ func Day8_2015() (string, string) {
 	newEncoding = newEncoding + (len(words) * 2)
 	// fmt.Printf("Real: %d Mem: %d New: %d\n", real, mem, newEncoding)
 
-	return strconv.Itoa((real - mem)), strconv.Itoa((newEncoding - real))
+	return internal.Answer{
+		Part1: strconv.Itoa((real - mem)),
+		Part2: strconv.Itoa((newEncoding - real)),
+	}
 }
 
-func Day9_2015() (string, string) {
-	input := data.ReadAsString("data/2015/day9.txt")
-	return strconv.Itoa(len(input)), ""
+func Day9_2015() internal.Answer {
+	// input := data.ReadAsString("data/2015/day9.txt")
+	return internal.Answer{}
 }

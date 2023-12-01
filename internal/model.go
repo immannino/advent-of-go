@@ -10,16 +10,20 @@ import (
 type Puzzle struct {
 	ID         int
 	Name       string
-	PuzzleFunc func() (string, string)
+	PuzzleFunc func() Answer
+}
+
+type Answer struct {
+	Part1, Part2 string
 }
 
 type PuzzleInterface interface {
 	GetID() int
-	Run() (part1 string, part2 string)
+	Run() Answer
 	RunWithTable() []string
 }
 
-func NewPuzzle(ID int, Name string, f func() (string, string)) PuzzleInterface {
+func NewPuzzle(ID int, Name string, f func() Answer) PuzzleInterface {
 	return Puzzle{
 		ID:         ID,
 		Name:       Name,
@@ -31,15 +35,15 @@ func (p Puzzle) GetID() int {
 	return p.ID
 }
 
-func (p Puzzle) Run() (part1 string, part2 string) {
+func (p Puzzle) Run() Answer {
 	return p.PuzzleFunc()
 }
 
 func (p Puzzle) RunWithTable() []string {
 	start := time.Now()
-	p1, p2 := p.PuzzleFunc()
+	a := p.PuzzleFunc()
 	end := time.Since(start)
-	return []string{p.Name, p1, p2, fmt.Sprintf("%v", end)}
+	return []string{p.Name, a.Part1, a.Part2, fmt.Sprintf("%v", end)}
 }
 
 type Year struct {
@@ -56,9 +60,9 @@ type YearInterface interface {
 func (y Year) SolveSingle(id int) error {
 	for _, v := range y.Puzzles {
 		if v.GetID() == id {
-			p1, p2 := v.Run()
+			a := v.Run()
 			fmt.Println(y.Title)
-			fmt.Println(fmt.Sprintf("Day %d:", id), p1, p2)
+			fmt.Println(fmt.Sprintf("Day %d:", id), a.Part1, a.Part2)
 			return nil
 		}
 	}

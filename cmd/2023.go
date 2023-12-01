@@ -22,7 +22,7 @@ type Day12023 struct {
 	namedInts map[string]string
 }
 
-func Day1_2023() (string, string) {
+func Day1_2023() internal.Answer {
 	w := Day12023{}
 	input := data.ReadAsString("data/2023/day1.txt")
 	w.input = strings.Split(input, "\n")
@@ -56,7 +56,10 @@ func Day1_2023() (string, string) {
 		}
 	}
 
-	return strconv.Itoa(part1), strconv.Itoa(part2)
+	return internal.Answer{
+		Part1: strconv.Itoa(part1),
+		Part2: strconv.Itoa(part2),
+	}
 }
 
 func (w *Day12023) getFirstLastInt(s string) int {
