@@ -3,6 +3,7 @@ package cmd
 import (
 	"advent-of-code/internal"
 	"advent-of-code/internal/data"
+	"fmt"
 	"strconv"
 	"strings"
 )
@@ -10,6 +11,7 @@ import (
 func NewYear2023() internal.Year {
 	Days := []internal.PuzzleInterface{
 		internal.NewPuzzle(1, "Day 1: Trebuchet?!", Day1_2023),
+		internal.NewPuzzle(2, "Day 2: Cube Conundrum", Day2_2023),
 	}
 
 	return internal.Year{"Year 2023", Days}
@@ -107,4 +109,70 @@ func (w *Day12023) getFirstLastNamed(s string) int {
 
 	num, _ := strconv.Atoi(first + last)
 	return num
+}
+
+type Day22023 struct {
+	input    []string
+	gameMap  map[string]map[string]int
+	part1Req map[string]int
+}
+
+func Day2_2023() internal.Answer {
+	w := Day22023{}
+	input := data.ReadAsString("data/2023/day2.txt")
+	w.input = strings.Split(input, "\n")
+	w.part1Req = map[string]int{
+		"red":   12,
+		"green": 13,
+		"blue":  14,
+	}
+
+	w.parseInput()
+
+	part1 := 0
+	part2 := 0
+	for i := 1; i <= 100; i++ {
+		k := fmt.Sprintf("Game %d", i)
+		v := w.gameMap[k]
+
+		fmt.Println(k, "Red:", v["red"], "Green:", v["green"], "Blue:", v["blue"])
+
+		// Calculate winning hand
+		if len(v) == 3 && v["red"] <= w.part1Req["red"] && v["green"] <= w.part1Req["green"] && v["blue"] <= w.part1Req["blue"] {
+			gameParts := strings.Split(k, "Game ")
+			num, _ := strconv.Atoi(gameParts[1])
+			part1 += num
+		}
+
+		// Calculate power
+		part2 += v["red"] * v["green"] * v["blue"]
+	}
+
+	return internal.Answer{Part1: strconv.Itoa(part1), Part2: strconv.Itoa(part2)}
+}
+
+func (w *Day22023) parseInput() {
+	w.gameMap = make(map[string]map[string]int)
+
+	for _, v := range w.input {
+		game := strings.Split(v, ": ")
+		w.gameMap[game[0]] = make(map[string]int)
+		pulls := strings.Split(game[1], "; ")
+
+		for _, g := range pulls {
+			cubes := strings.Split(g, ", ")
+
+			for _, c := range cubes {
+				cubeParts := strings.Split(c, " ")
+				cubeCount, _ := strconv.Atoi(cubeParts[0])
+				if _, ok := w.gameMap[game[0]][cubeParts[1]]; !ok {
+					w.gameMap[game[0]][cubeParts[1]] = cubeCount
+				} else {
+					if cubeCount > w.gameMap[game[0]][cubeParts[1]] {
+						w.gameMap[game[0]][cubeParts[1]] = cubeCount
+					}
+				}
+			}
+		}
+	}
 }
