@@ -20,6 +20,10 @@ func NewYear2023() internal.Year {
 	return internal.Year{"Year 2023", Days}
 }
 
+////////////////////////////////////////////////////
+/// Day 1
+////////////////////////////////////////////////////
+
 // Optional state for Day1
 type Day12023 struct {
 	input     []string
@@ -114,6 +118,10 @@ func (w *Day12023) getFirstLastNamed(s string) int {
 	return num
 }
 
+////////////////////////////////////////////////////
+/// Day 2
+////////////////////////////////////////////////////
+
 type Day22023 struct {
 	input    []string
 	gameMap  map[string]map[string]int
@@ -180,39 +188,134 @@ func (w *Day22023) parseInput() {
 	}
 }
 
+////////////////////////////////////////////////////
+/// Day 3
+////////////////////////////////////////////////////
+
 type Day32023 struct {
 	input []string
+	part1 int
+	part2 int
 }
 
 func Day3_2023() internal.Answer {
 	w := Day32023{}
-	input := data.ReadAsString("data/2023/day3_example.txt")
+	input := data.ReadAsString("data/2023/day3.txt")
 	w.input = strings.Split(input, "\n")
 
-	part1 := 0
-
-	for _, l := range w.input {
+	adjacentNums := []string{}
+	for y, l := range w.input {
+		// a map of num chars & isAdjacentToSymbol
+		currNumAdjacencies := make(map[string]bool)
 		currNum := ""
-		for _, c := range l {
+		for x, c := range l {
+			key := strconv.Itoa(x) + string(c)
 			if c >= 48 && c <= 57 {
 				currNum += string(c)
-				fmt.Println(currNum)
+				if _, ok := currNumAdjacencies[key]; !ok {
+					currNumAdjacencies[key] = false
+				}
+
+				if w.isAdjacentToSymbol(x, y, len(l)) {
+					currNumAdjacencies[key] = true
+				}
+
 				continue
 			}
 
-			if len(currNum) == 0 {
-				continue
-			}
+			// We only get here at the end of a cycle
+			if len(currNum) > 0 {
+				if w.hasAdjacenies(currNumAdjacencies) {
+					adjacentNums = append(adjacentNums, currNum)
+				}
 
-			parsedNum, _ := strconv.Atoi(currNum)
-			part1 += parsedNum
-			currNum = ""
+				currNum = ""
+				currNumAdjacencies = make(map[string]bool)
+			}
 		}
 	}
 
-	fmt.Println(part1)
-	return internal.Answer{Part1: strconv.Itoa(part1)}
+	for _, v := range adjacentNums {
+		num, _ := strconv.Atoi(v)
+		w.part1 += num
+	}
+
+	return internal.Answer{Part1: strconv.Itoa(w.part1)}
 }
+
+func (w *Day32023) hasAdjacenies(m map[string]bool) bool {
+	for _, v := range m {
+		if v {
+			return true
+		}
+	}
+
+	return false
+}
+
+func (w *Day32023) isAdjacentToSymbol(x, y, lineLen int) bool {
+	// Top
+	if y > 0 && w.isSymbol(rune(w.input[y-1][x])) {
+		// log.Print("Symbol Top!")
+		return true
+	}
+
+	// Bottom
+	if y < (len(w.input)-1) && w.isSymbol(rune(w.input[y+1][x])) {
+		// log.Print("Symbol Bottom!")
+		return true
+	}
+
+	// Left
+	if x > 0 && w.isSymbol(rune(w.input[y][x-1])) {
+		// log.Print("Symbol Left!")
+		return true
+	}
+
+	// Right
+	if x < (lineLen-1) && w.isSymbol(rune(w.input[y][x+1])) {
+		// log.Print("Symbol Right!")
+		return true
+	}
+
+	// Top Right
+	if (y > 0) && (x < (lineLen - 1)) && w.isSymbol(rune(w.input[y-1][x+1])) {
+		// log.Print("Symbol Top Right!")
+		return true
+	}
+
+	// Top Left
+	if (y > 0) && (x > 0) && w.isSymbol(rune(w.input[y-1][x-1])) {
+		// log.Print("Symbol Top Left!")
+		return true
+	}
+
+	if y < (len(w.input)-1) && x < (lineLen-1) && w.isSymbol(rune(w.input[y+1][x+1])) {
+		// log.Print("Symbol Bottom Right!")
+		return true
+	}
+
+	if y < (len(w.input)-1) && x > 0 && w.isSymbol(rune(w.input[y+1][x-1])) {
+		// log.Print("Symbol Bottom Right!")
+		return true
+	}
+
+	return false
+
+}
+
+func (w *Day32023) isSymbol(c rune) bool {
+	// check . or 0-9
+	if c == 46 || (c >= 48 && c <= 57) {
+		return false
+	}
+
+	return true
+}
+
+////////////////////////////////////////////////////
+/// Day 4
+////////////////////////////////////////////////////
 
 type Day42023 struct {
 	input []string
