@@ -4,6 +4,7 @@ import (
 	"advent-of-code/internal"
 	"advent-of-code/internal/data"
 	"fmt"
+	"math"
 	"strconv"
 	"strings"
 )
@@ -12,6 +13,8 @@ func NewYear2023() internal.Year {
 	Days := []internal.PuzzleInterface{
 		internal.NewPuzzle(1, "Day 1: Trebuchet?!", Day1_2023),
 		internal.NewPuzzle(2, "Day 2: Cube Conundrum", Day2_2023),
+		internal.NewPuzzle(3, "Day 3: Gear Ratios", Day3_2023),
+		internal.NewPuzzle(4, "Day 4: Scratchcards", Day4_2023),
 	}
 
 	return internal.Year{"Year 2023", Days}
@@ -175,4 +178,105 @@ func (w *Day22023) parseInput() {
 			}
 		}
 	}
+}
+
+type Day32023 struct {
+	input []string
+}
+
+func Day3_2023() internal.Answer {
+	w := Day32023{}
+	input := data.ReadAsString("data/2023/day3_example.txt")
+	w.input = strings.Split(input, "\n")
+
+	part1 := 0
+
+	for _, l := range w.input {
+		currNum := ""
+		for _, c := range l {
+			if c >= 48 && c <= 57 {
+				currNum += string(c)
+				fmt.Println(currNum)
+				continue
+			}
+
+			if len(currNum) == 0 {
+				continue
+			}
+
+			parsedNum, _ := strconv.Atoi(currNum)
+			part1 += parsedNum
+			currNum = ""
+		}
+	}
+
+	fmt.Println(part1)
+	return internal.Answer{Part1: strconv.Itoa(part1)}
+}
+
+type Day42023 struct {
+	input []string
+	part1 int
+	part2 int
+}
+
+func Day4_2023() internal.Answer {
+	w := Day42023{}
+	input := data.ReadAsString("data/2023/day4.txt")
+	w.input = strings.Split(input, "\n")
+	w.part1 = 0
+	w.part2 = 0
+
+	gameCount := make(map[string]int)
+
+	for i, line := range w.input {
+		gameParts := strings.Split(line, ": ")
+		if _, ok := gameCount[strconv.Itoa(i)]; !ok {
+			// first game starts as 1
+			gameCount[strconv.Itoa(i)] = 1
+		} else {
+			// additional games append
+			gameCount[strconv.Itoa(i)] += 1
+		}
+
+		numberParts := strings.Split(gameParts[1], " | ")
+		winning := strings.Split(numberParts[0], " ")
+		elfNumbers := strings.Split(numberParts[1], " ")
+		winCount := 0
+		for _, g := range winning {
+			if g == "" || g == " " {
+				continue
+			}
+			for _, e := range elfNumbers {
+				if e == "" || e == " " {
+					continue
+				}
+				if g == e {
+					if winCount == 0 {
+						winCount = 1
+					} else {
+						winCount += 1
+					}
+				}
+			}
+		}
+
+		if winCount > 0 {
+			w.part1 += int(math.Exp2(float64(winCount) - 1))
+		}
+
+		for g := 1; g <= winCount; g++ {
+			if _, ok := gameCount[strconv.Itoa(g+i)]; !ok {
+				gameCount[strconv.Itoa(g+i)] = (1 * gameCount[strconv.Itoa(i)])
+			} else {
+				gameCount[strconv.Itoa(g+i)] += (1 * gameCount[strconv.Itoa(i)])
+			}
+		}
+	}
+
+	for _, g := range gameCount {
+		w.part2 += g
+	}
+
+	return internal.Answer{Part1: strconv.Itoa(w.part1), Part2: strconv.Itoa(w.part2)}
 }
