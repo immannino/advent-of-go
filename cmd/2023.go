@@ -15,6 +15,7 @@ func NewYear2023() internal.Year {
 		internal.NewPuzzle(2, "Day 2: Cube Conundrum", Day2_2023),
 		internal.NewPuzzle(3, "Day 3: Gear Ratios", Day3_2023),
 		internal.NewPuzzle(4, "Day 4: Scratchcards", Day4_2023),
+		internal.NewPuzzle(5, "Day 5: If You Give A Seed A Fertilizer", Day5_2023),
 	}
 
 	return internal.Year{"Year 2023", Days}
@@ -382,4 +383,18 @@ func Day4_2023() internal.Answer {
 	}
 
 	return internal.Answer{Part1: strconv.Itoa(w.part1), Part2: strconv.Itoa(w.part2)}
+}
+
+////////////////////////////////////////////////////
+/// Day 5
+////////////////////////////////////////////////////
+
+type Day52023 struct {
+	input []string
+	part1 int
+	part2 int
+}
+
+func Day5_2023() internal.Answer {
+	return internal.Answer{}
 }
