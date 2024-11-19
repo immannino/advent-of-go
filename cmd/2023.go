@@ -18,7 +18,10 @@ func NewYear2023() internal.Year {
 		internal.NewPuzzle(5, "Day 5: If You Give A Seed A Fertilizer", Day5_2023),
 	}
 
-	return internal.Year{"Year 2023", Days}
+	return internal.Year{
+		Title:   "Year 2023",
+		Puzzles: Days,
+	}
 }
 
 ////////////////////////////////////////////////////
