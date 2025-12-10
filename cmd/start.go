@@ -29,6 +29,8 @@ func Start() {
 			NewYear2021().SolvePretty()
 			NewYear2022().SolvePretty()
 			NewYear2023().SolvePretty()
+			NewYear2024().SolvePretty()
+			NewYear2025().SolvePretty()
 			return nil
 		},
 		Commands: []*cli.Command{
@@ -98,6 +100,19 @@ func Start() {
 				},
 			},
 			{
+				Name:  "2025",
+				Flags: dayFlags,
+				Action: func(ctx *cli.Context) error {
+					d := NewYear2025()
+					if ctx.Int("day") > 0 {
+						return d.SolveSingle(ctx.Int("day"))
+					}
+
+					d.SolvePretty()
+					return nil
+				},
+			},
+			{
 				Name:   "readme",
 				Action: GenerateReadme,
 			},
@@ -129,6 +144,7 @@ const readmeTemplate = `# Advent of Go
 
 func GenerateReadme(ctx *cli.Context) error {
 	solutions := []string{
+		NewYear2025().SolvePrettyToString(),
 		NewYear2024().SolvePrettyToString(),
 		NewYear2023().SolvePrettyToString(),
 		NewYear2022().SolvePrettyToString(),
