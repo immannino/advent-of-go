@@ -11,6 +11,7 @@ import (
 func NewYear2025() internal.Year {
 	Days := []internal.PuzzleInterface{
 		internal.NewPuzzle(1, "Day 1: Secret Entrance", Day1_2025),
+		internal.NewPuzzle(2, "Day 2: Gift Shop", Day2_2025),
 	}
 
 	return internal.Year{
@@ -121,4 +122,53 @@ func (w *Day12025) part2() int {
 
 func mod(n int, m int) int {
 	return ((n % m) + m) % m
+}
+
+type Day22025 struct {
+	input string
+}
+
+func Day2_2025() internal.Answer {
+	w := Day22025{}
+	w.input = data.ReadAsString("data/2025/day2.txt")
+
+	return internal.Answer{Part1: strconv.Itoa(w.part1()), Part2: strconv.Itoa(w.part2())}
+}
+
+func (d *Day22025) part1() int {
+	ids := strings.Split(d.input, ",")
+	sum := 0
+
+	for _, v := range ids {
+		parts := strings.Split(v, "-")
+		min := util.MustInt(parts[0])
+		max := util.MustInt(parts[1])
+
+		for i := min; i < max+1; i++ {
+			if mod(iLen(i), 2) != 0 {
+				continue
+			}
+
+			iStr := strconv.Itoa(i)
+			if iStr[:len(iStr)/2] == iStr[len(iStr)/2:] {
+				sum += i
+			}
+		}
+	}
+
+	return sum
+}
+
+func (d *Day22025) part2() int { return 0 }
+
+func iLen(i int) int {
+	if i == 0 {
+		return 1
+	}
+	count := 0
+	for i != 0 {
+		i /= 10
+		count++
+	}
+	return count
 }
